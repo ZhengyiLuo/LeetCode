@@ -23,6 +23,7 @@ class Solution(object):
                     Max = curr
         return Max
 
+
 if __name__ == "__main__":
     print("Longest Substring Without Repeating Characters")
     s = Solution()

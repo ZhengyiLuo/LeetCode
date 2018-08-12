@@ -25,7 +25,7 @@ class Solution(object):
         return list(result)
 
 
-if __name__ == "__main__":
+if _name__ == "__main__":
     print("3Sum Closet")
     s = Solution()
     array = [-1,0,1,2,-1,-4]

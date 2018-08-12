@@ -7,9 +7,25 @@ class ListNode(object):
     def __init__(self, x):
         self.val = x
         self.next = None
-
+        
 
 class Solution(object):
+    def toLinkedlist(self, n):
+        strnum = str(n)
+        r = ListNode(int(strnum[len(strnum)-1]))
+        res = r
+        for i in range(len(strnum)-2, -1, -1):
+            r.next = ListNode(int(strnum[i]))
+            r = r.next	
+        return res
+        
+    def toString(slef, r):
+        num = ''
+        while r != None: 
+            num =  str(r.val) + num
+            r = r.next
+        print(num)
+    
     def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode
@@ -85,11 +101,11 @@ class Solution(object):
 
 if __name__ == "__main__":
     s = Solution()
-    l2 = ListNode(3)
-    l2.next = ListNode(7)
-    l1 = ListNode(9)
-    l1.next = ListNode(2)
+    l2 = ListNode(1)
+    l2.next = ListNode(1)
+    l1 = ListNode(5)
+#    l1.next = ListNode(2)
     r = s.addTwoNumbers(l1, l2)
-    while r != None:
-        print(r.val)
-        r = r.next
+    r = s.toLinkedlist(51)
+    s.toString(r)
+   

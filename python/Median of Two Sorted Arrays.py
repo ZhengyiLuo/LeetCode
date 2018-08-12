@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
         """
@@ -28,8 +27,8 @@ class Solution(object):
             mid = mid - mid1
             while mid2 <= mid1:
                 if mid2 > mid:
-
-   def binarySearch(self, blist, num):
+    
+    def binarySearch(self, blist, num):
        begin = 0
        end = len(blist) - 1
        found = False

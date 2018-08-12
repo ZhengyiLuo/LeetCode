@@ -5,6 +5,8 @@
 # Return 2. Because there are two triplets which sums are less than 2:
 
 # [-2, 0, 1]
+import sys
+import Utils
 class Solution(object):
     def threeSumSmaller(self, nums, target):
         """
@@ -13,7 +15,6 @@ class Solution(object):
         :rtype: int
         """
         nums = sorted(nums)
-        result = set()
         smallest = sys.maxint
         result = None
         for x in range(0, len(nums) - 2):
@@ -37,4 +38,4 @@ if __name__ == "__main__":
     print("3Sum Closet")
     s = Solution()
     array = [-1,0,1,2,-1,-4]
-    print(s.threeSum(array))
+    print(s.threeSumSmaller(array, 5))

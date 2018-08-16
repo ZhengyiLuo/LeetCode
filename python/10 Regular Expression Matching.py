@@ -1,70 +1,45 @@
-#class Solution:
-#	def isMatch(self, s, p):
-#		"""
-#		:type s: str
-#		:type p: str
-#		:rtype: bool
-#		"""
-#		s_len = len(s)
-#		p_len = len(p)
-#		t = [ [False] * (s_len + 1) for i in range((p_len + 1))]
-#		t[p_len][s_len] = True
-#
-#		for j in range(p_len - 1, -1, -1):
-#			for i in range(s_len - 1, -1, -1):
-#				prev = t[j + 1][i + 1]
-#				prev_j = t[j][i + 1]
-#				prev_i = t[j + 1][i]
-#				first = s[i] == p[j] and prev
-#				second = p[j] == '.' and prev
-#				
-#				thrid = False
-#				if j - 1 >= 0:				
-#					thrid = (p[j] == '*' and (s[i] == p[j - 1] or p[j-1] == '.'))  and (prev or prev_j)
-#					
-#				forth = False
-#				if j - 1 >= 0:				
-#					forth = (p[j - 1] == '.') and prev
-#				
-#				fifth = False
-#				if	j + 1 < p_len:
-#					fifth = (p[j + 1] == '*' and prev_i) or (p[j] == '*' and prev_i)
-#					
-#				sixth = False
-#				if j + 2 < p_len:
-#					sixth = p[j + 2] == '*' and s[i] == p[j] and t[j + 3][i + 1]
-#				
-#				t[j][i] = first or second or thrid or forth or fifth or sixth
-#				
-#				
-#				
-##				print(j, p[j], i, s[i], t[j][i])
-##				print(first ,  second , thrid , forth, fifth, sixth)	
-###
-##		for i in reversed(range(len(t))):
-##			print(i, list(reversed(t[i])))
-#			
-#		return t[0][0]
+
 class Solution(object):
-	def isMatch(self, s, p):
-		"""
-		:type s: str
-		:type p: str
-		:rtype: bool
-		"""
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        s_len = len(s)
+        p_len = len(p)
+        T = [ [False] * (p_len + 1) for i in range((s_len + 1))]
+        T[-1][-1] = True
+        
+        for j in range(p_len):
+            for i in range(-1, s_len):
+                
+                first = p[j] == '.' and T[i-1][j-1] if s_len > 0 and i >= 0 else False
+                second = p[j] == s[i] and T[i-1][j-1] if s_len > 0 and i >= 0  else False
+                
+                third = p[j+1] == '*' and (T[i][j-1] or (( (p[j] == s[i] if s_len > 0 and i >= 0  else False) or p[j] == '.') and (T[i-1][j] if s_len > 0 else False) ) ) if j + 1 < p_len else False
+                forth = p[j] == '*' and T[i][j-1]
+                T[i][j] = first or second or third or forth
 
-	return True 
+                # print(j, p[j], i, s[i], T[i][j])
+                # print(first ,  second , third , forth)
 
+        # for i in range(len(T)):
+        #     print(i, T[i])
+
+        return T[s_len -1 ][p_len - 1]
 
 
 if __name__ == "__main__":
-	s = Solution()
-	print(s.isMatch("mississippi", "mis*is*p*."))
-	print(s.isMatch("aa", "a"))	
-	print(s.isMatch("aa", "a*"))	
-	print(s.isMatch("ab", ".*"))	
-	print(s.isMatch("aab", "c*a*b"))	
-	print(s.isMatch("faaba", "fa*aba"))	
-	print(s.isMatch("aaa", ".a"))
-	print(s.isMatch("aaa", ".*"))	
-	print(s.isMatch("a", "ab*"))	
+    s = Solution()
+    print(s.isMatch("mississippi", "mis*is*p*.") == False)
+    print(s.isMatch("aa", "a") == False)
+    print(s.isMatch("aa", "a*") == True)
+    print(s.isMatch("ab", ".*") == True)
+    print(s.isMatch("aab", "c*a*b")== True)
+    print(s.isMatch("faaba", "fa*aba")== True)
+    print(s.isMatch("aaa", ".a")== False)
+    print(s.isMatch("aaa", ".*")== True)
+    print(s.isMatch("a", "ab*")== True)
+    print(s.isMatch("", ".b*")== False)
+    print(s.isMatch("a", ".*..a*")== False)
